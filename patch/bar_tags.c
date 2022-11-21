@@ -2,11 +2,20 @@ int
 width_tags(Bar *bar, BarWidthArg *a)
 {
 	int w, i;
+	Client *c;
+	Monitor *m = bar->mon;
+    unsigned int occ = 0;
 
-	for (w = 0, i = 0; i < LENGTH(tags); i++) {
-		w += TEXTW(tags[i]);
-	}
-	return w;
+    for (c = m->clients; c; c = c->next)
+        occ |= c->tags;
+
+    for (w = 0, i = 0; i < LENGTH(tags); i++) {
+        /* Do not reserve space for vacant tags */
+        if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
+            continue;
+        w += TEXTW(tags[i]);
+    }
+    return w;
 }
 
 int
@@ -27,6 +36,9 @@ draw_tags(Bar *bar, BarDrawArg *a)
 	}
 
 	for (i = 0; i < LENGTH(tags); i++) {
+		/* Do not draw vacant tags */
+		if(!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
+			continue;
 		invert = urg & 1 << i;
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
