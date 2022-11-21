@@ -7,6 +7,7 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const char buttonbar[]       = "<O>";
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
@@ -46,10 +47,11 @@ static const Rule rules[] = {
  *    name - does nothing, intended for visual clue and for logging / debugging
  */
 static const BarRule barrules[] = {
-	/* monitor  bar    alignment         widthfunc              drawfunc              clickfunc           name */
+	/* monitor  bar    alignment               widthfunc              drawfunc              clickfunc           name */
 	{ -1,       0,     BAR_ALIGN_CENTER,       width_tags,            draw_tags,            click_tags,         "tags" },
+	{ -1,       0,     BAR_ALIGN_LEFT_LEFT,    width_stbutton,        draw_stbutton,        click_stbutton,     "statusbutton" },
 	{ -1,       0,     BAR_ALIGN_RIGHT_LEFT,   width_ltsymbol,        draw_ltsymbol,        click_ltsymbol,     "layout" },
-	{ -1,       0,     BAR_ALIGN_RIGHT_RIGHT,        width_status,          draw_status,          click_status,       "status" },
+	{ -1,       0,     BAR_ALIGN_RIGHT_RIGHT,  width_status,          draw_status,          click_status,       "status" },
 	{ -1,       0,     BAR_ALIGN_LEFT,         width_wintitle,        draw_wintitle,        click_wintitle,     "wintitle" },
 };
 
@@ -121,9 +123,10 @@ static const Key keys[] = {
 };
 
 /* button definitions */
-/* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
+/* click can be ClkButton, ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
+	{ ClkButton,            0,              Button1,        spawn,          {.v = dmenucmd } },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
