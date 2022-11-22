@@ -1,7 +1,9 @@
 int
 width_wintitle(Bar *bar, BarWidthArg *a)
 {
-	return a->max_width;
+	Monitor *m = bar->mon;
+
+	return TEXTW(m->sel->name);
 }
 
 int
