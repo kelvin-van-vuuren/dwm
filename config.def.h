@@ -10,6 +10,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 #define ICONSIZE (bh - 10)                      /* icon size */
 #define ICONSPACING (bh - 12)                   /* space between icon and title */
 static const char buttonbar[]       = "";
+static const char statussep         = ';';      /* separator between status bars */
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
@@ -58,8 +59,9 @@ static const BarRule barrules[] = {
 	{ -1,       0,     BAR_ALIGN_CENTER,       width_tags,            draw_tags,            click_tags,         "tags" },
 	{ -1,       0,     BAR_ALIGN_LEFT_LEFT,    width_stbutton,        draw_stbutton,        click_stbutton,     "statusbutton" },
 	{ -1,       0,     BAR_ALIGN_RIGHT_LEFT,   width_ltsymbol,        draw_ltsymbol,        click_ltsymbol,     "layout" },
-	{ -1,       0,     BAR_ALIGN_RIGHT_RIGHT,  width_status,          draw_status,          click_status,       "status" },
 	{ -1,       0,     BAR_ALIGN_LEFT,         width_wintitle,        draw_wintitle,        click_wintitle,     "wintitle" },
+	{ -1,       0,     BAR_ALIGN_LEFT,         width_status2d,        draw_status2d,        click_statuscmd,    "status2d" },
+	{ -1,       0,     BAR_ALIGN_RIGHT_RIGHT,  width_status2d_es,     draw_status2d_es,     click_statuscmd_es, "status2d_es" },
 };
 
 /* layout(s) */
@@ -137,7 +139,11 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1 } },
+	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2 } },
+	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3 } },
+	{ ClkStatusText,        0,              Button4,        sigdwmblocks,   {.i = 4 } },
+	{ ClkStatusText,        0,              Button5,        sigdwmblocks,   {.i = 5 } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
