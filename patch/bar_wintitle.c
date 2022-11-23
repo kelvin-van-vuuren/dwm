@@ -1,9 +1,16 @@
 int
 width_wintitle(Bar *bar, BarWidthArg *a)
 {
-	Monitor *m = bar->mon;
+    Monitor *m = bar->mon;
+    int w = 0;
+ 
+    if (m->sel) {
+	   w = TEXTW(m->sel->name);
+	   if (m->sel->icon)
+		   w += m->sel->icw + ICONSPACING;
+    }
 
-	return TEXTW(m->sel->name);
+    return w;
 }
 
 int
