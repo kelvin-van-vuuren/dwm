@@ -7,11 +7,11 @@ width_stbutton(Bar *bar, BarWidthArg *a)
 int
 draw_stbutton(Bar *bar, BarDrawArg *a)
 {
-	#if BAR_PANGO_PATCH
-	return drw_text(drw, a->x, 0, a->w, bh, lrpad / 2, buttonbar, 0, False);
-	#else
+	Monitor *m = bar->mon;
+
+    if (bar->mon->sel)
+		drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
 	return drw_text(drw, a->x, 0, a->w, bh, lrpad / 2, buttonbar, 0);
-	#endif // BAR_PANGO_PATCH
 }
 
 int
