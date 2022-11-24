@@ -23,8 +23,6 @@ draw_tags(Bar *bar, BarDrawArg *a)
 {
 	int invert;
 	int w, x = a->x;
-	int boxs = drw->fonts->h / 9;
-	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 	Monitor *m = bar->mon;
@@ -45,9 +43,6 @@ draw_tags(Bar *bar, BarDrawArg *a)
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], invert);
 		if (ulineall || m->tagset[m->seltags] & 1 << i) /* if there are conflicts, just move these lines directly underneath both 'drw_setscheme' and 'drw_text' :) */
 			drw_rect(drw, x + ulinepad, bh - ulinestroke - ulinevoffset, w - (ulinepad * 2), ulinestroke, 1, 0);
-		if (occ & 1 << i)
-			drw_rect(drw, x + boxs, boxs, boxw, boxw,
-				m == selmon && selmon->sel && selmon->sel->tags & 1 << i, invert);
 		x += w;
 	}
 
