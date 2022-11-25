@@ -1,4 +1,5 @@
 /* Bar functionality */
+#include "bar_alpha.h"
 #include "bar_dwmblocks.h"
 #include "bar_ltsymbol.h"
 #include "bar_status2d.h"
