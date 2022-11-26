@@ -332,7 +332,7 @@ static void autostart_exec(void);
 static void bstack(Monitor *m);
 static void bstackhoriz(Monitor *m);
 
-#include "patch/include.h"
+#include "bar/include.h"
 
 /* variables */
 static const char broken[] = "broken";
@@ -378,7 +378,7 @@ static Window root, wmcheckwin;
 /* configuration, allows nested code to access above variables */
 #include "config.h"
 
-#include "patch/include.c"
+#include "bar/include.c"
 
 struct Pertag {
 	unsigned int curtag, prevtag; /* current and previous tag */
