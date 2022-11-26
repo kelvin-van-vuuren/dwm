@@ -58,9 +58,10 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class              instance    title       tags mask     isfloating   monitor */
+	{ "floatingterm",     NULL,       NULL,       0,            1,           -1 },
+	{ "Gimp",             NULL,       NULL,       0,            1,           -1 },
+	{ "Firefox",          NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
 /* Bar rules allow you to configure what is shown where on the bar, as well as
@@ -117,6 +118,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-p", " : ", "-l", "20", "-c", NULL };
 #define TERMINAL_ENVVAR "TERMINAL"
+static char *floatingtermcmd[]  = { "st", "-c", "floatingterm", NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -145,6 +147,7 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,             spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return,        spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return,        spawn,          {.v = floatingtermcmd} },
 	{ MODKEY,                       XK_equal,         spawn,          SHCMD("brightness up") },
 	{ MODKEY,                       XK_minus,         spawn,          SHCMD("brightness down") },
 	{ MODKEY,                       XK_b,             togglebar,      {0} },
@@ -156,7 +159,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period,        setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_j,             movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,             movestack,      {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_Return,        zoom,           {0} },
+	// { MODKEY|ShiftMask,             XK_Return,        zoom,           {0} },
 	{ MODKEY,                       XK_Tab,           view,           {0} },
 	{ MODKEY,                       XK_q,             killclient,     {0} },
 	{ MODKEY,                       XK_t,             setlayout,      {.v = &layouts[0]} },
