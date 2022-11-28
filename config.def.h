@@ -14,8 +14,8 @@ static const char buttonbar[]       = "";
 static const char statussep         = ';';      /* separator between status bars */
 static const unsigned int systrayspacing = 16;  /* systray spacing */
 static const int showsystray             = 1;   /* 0 means no systray */
-static char font[]                  = { "JetbrainsMono Nerd Font:style=Book:pixelsize=17:antialias=true:autohint=true" };
-static char dmenufont[]             = "monospace:size=10";
+static char font[]                  = "monospace:pixelsize=18";
+static char dmenufont[]             = "monospace:pixelsize=18";
 static const char *fonts[]          = { font };
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
