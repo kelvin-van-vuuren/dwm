@@ -7,7 +7,7 @@ width_tags(Bar *bar, BarWidthArg *a)
     unsigned int occ = 0;
 
     for (c = m->clients; c; c = c->next)
-        occ |= c->tags;
+		occ |= c->tags == 255 ? 0 : c->tags;
 
     for (w = 0, i = 0; i < LENGTH(tags); i++) {
         /* Do not reserve space for vacant tags */
@@ -52,9 +52,16 @@ draw_tags(Bar *bar, BarDrawArg *a)
 int
 click_tags(Bar *bar, Arg *arg, BarClickArg *a)
 {
-	int i = 0, x = lrpad / 2;
+	int i = 0, x = 0;
+	Client *c;
+	unsigned int occ = 0;
+    
+	for (c = bar->mon->clients; c; c = c->next)
+		occ |= c->tags == 255 ? 0 : c->tags;
 
 	do {
+		if (!(occ & 1 << i || bar->mon->tagset[bar->mon->seltags] & 1 << i))
+			continue;
 		x += TEXTW(tags[i]);
 	} while (a->rel_x >= x && ++i < LENGTH(tags));
 	if (i < LENGTH(tags)) {
