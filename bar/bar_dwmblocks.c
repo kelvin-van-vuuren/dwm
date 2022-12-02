@@ -1,31 +1,40 @@
 static int dwmblockssig;
 pid_t dwmblockspid = 0;
 
-int
+pid_t
 getdwmblockspid()
 {
-	char buf[16];
-	FILE *fp = popen("pidof -s dwmblocks", "r");
-	if (fgets(buf, sizeof(buf), fp));
-	pid_t pid = strtoul(buf, NULL, 10);
+	char buf[32], *str = buf, *c;
+	FILE *fp;
+
+	if (dwmblockspid > 0) {
+		snprintf(buf, sizeof(buf), "/proc/%u/cmdline", dwmblockspid);
+		if ((fp = fopen(buf, "r"))) {
+			fgets(buf, sizeof(buf), fp);
+			while ((c = strchr(str, '/')))
+				str = c + 1;
+			fclose(fp);
+			if (!strcmp(str, "dwmblocks"))
+				return dwmblockspid;
+		}
+	}
+	if (!(fp = popen("pgrep -o dwmblocks", "r")))
+		return -1;
+	fgets(buf, sizeof(buf), fp);
 	pclose(fp);
-	dwmblockspid = pid;
-	return pid != 0 ? 0 : -1;
+	return strtol(buf, NULL, 10);
 }
 
 void
 sigdwmblocks(const Arg *arg)
 {
 	union sigval sv;
-	sv.sival_int = (dwmblockssig << 8) | arg->i;
-	if (!dwmblockspid)
-		if (getdwmblockspid() == -1)
-			return;
 
-	if (sigqueue(dwmblockspid, SIGUSR1, sv) == -1) {
-		if (errno == ESRCH) {
-			if (!getdwmblockspid())
-				sigqueue(dwmblockspid, SIGUSR1, sv);
-		}
-	}
+	if (!dwmblockssig)
+		return;
+	if ((dwmblockspid = getdwmblockspid()) <= 0)
+		return;
+
+	sv.sival_int = arg->i;
+	sigqueue(dwmblockspid, SIGRTMIN+dwmblockssig, sv);
 }
