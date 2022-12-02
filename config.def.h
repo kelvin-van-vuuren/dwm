@@ -184,8 +184,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_bracketright,  setgaps,        {.i = 5 } },
 	{ MODKEY|ShiftMask,             XK_bracketleft,   setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,             XK_bracketright,  setgaps,        {.i = GAP_TOGGLE} },
-	{ MODKEY|ShiftMask,             XK_n,             tagnextmon,     {.ui = 1  } },
-	{ MODKEY|ShiftMask,             XK_p,             tagprevmon,     {.ui = 1  } },
+	{ MODKEY|ShiftMask,             XK_n,             tagnextmon,     {.ui = 0  } },
+	{ MODKEY|ShiftMask,             XK_p,             tagprevmon,     {.ui = 0  } },
 	TAGKEYS(                        XK_1,                             0)
 	TAGKEYS(                        XK_2,                             1)
 	TAGKEYS(                        XK_3,                             2)
