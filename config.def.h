@@ -121,6 +121,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-l", "20", "-c", "-F", NULL };
+static const char *lockcmd[] = { "slock", NULL };
 static const char *powermenucmd[] = { "dwm-powermenu", NULL };
 #define TERMINAL_ENVVAR "TERMINAL"
 static char *floatingtermcmd[]  = { "st", "-c", "floatingterm", NULL };
@@ -156,6 +157,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return,        spawn,          {.v = floatingtermcmd} },
 	{ MODKEY,                       XK_equal,         spawn,          SHCMD("brightness up") },
 	{ MODKEY,                       XK_minus,         spawn,          SHCMD("brightness down") },
+	{ MODKEY,                       XK_apostrophe,    spawn,          {.v = lockcmd} },
+	{ MODKEY|ShiftMask,             XK_apostrophe,    spawn,          {.v = powermenucmd} },
 	{ MODKEY,                       XK_b,             togglebar,      {0} },
 	{ MODKEY,                       XK_j,             focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,             focusstack,     {.i = -1 } },
