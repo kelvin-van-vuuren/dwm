@@ -1,0 +1,12 @@
+#!/bin/sh
+
+menu=$(printf " Shutdown\n Reboot\n Logout\n Lock\n鈴 Suspend\n Hibernate" | dmenu -c -p "Power menu: " -l 8)
+case $menu in
+" Shutdown") poweroff ;;
+" Reboot") reboot ;;
+"鈴 Suspend") systemctl suspend ;;
+" Hibernate") systemctl hibernate ;;
+" Logout") killall dwm ;;
+" Lock") slock ;;
+*) exit ;;
+esac

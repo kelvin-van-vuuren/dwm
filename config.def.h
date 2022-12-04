@@ -11,6 +11,7 @@ static int topbar                   = 1;        /* 0 means bottom bar */
 #define ICONSIZE (bh - 10)                      /* icon size */
 #define ICONSPACING (bh - 12)                   /* space between icon and title */
 static const char buttonbar[]       = "";
+static const char powerbutton[]     = "";
 static const char statussep         = ';';      /* separator between status bars */
 static const unsigned int systrayspacing = 16;  /* systray spacing */
 static const int showsystray             = 1;   /* 0 means no systray */
@@ -83,6 +84,7 @@ static const BarRule barrules[] = {
 	{ -1,       0,     BAR_ALIGN_LEFT_LEFT,    width_ltsymbol,        draw_ltsymbol,        click_ltsymbol,     "layout" },
 	{ -1,       0,     BAR_ALIGN_LEFT_LEFT,    width_wintitle,        draw_wintitle,        click_wintitle,     "wintitle" },
 	{ -1,       0,     BAR_ALIGN_LEFT_LEFT,    width_status2d_es,     draw_status2d_es,     click_statuscmd_es, "status2d_es" },
+	{ -1,       0,     BAR_ALIGN_RIGHT_RIGHT,  width_powerbutton,     draw_powerbutton,     click_powerbutton,  "powerbutton" },
 	{ -1,       0,     BAR_ALIGN_RIGHT_RIGHT,  width_systray,         draw_systray,         click_systray,      "systray" },
 	{ -1,       0,     BAR_ALIGN_RIGHT_RIGHT,  width_status2d,        draw_status2d,        click_statuscmd,    "status2d" },
 };
@@ -119,6 +121,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-l", "20", "-c", "-F", NULL };
+static const char *powermenucmd[] = { "dwm-powermenu", NULL };
 #define TERMINAL_ENVVAR "TERMINAL"
 static char *floatingtermcmd[]  = { "st", "-c", "floatingterm", NULL };
 static const char *layoutmenu_cmd = "dwm-layoutmenu";
@@ -205,6 +208,7 @@ static const Key keys[] = {
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkButton,            0,              Button1,        spawn,          {.v = dmenucmd } },
+	{ ClkPowerButton,       0,              Button1,        spawn,          {.v = powermenucmd } },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        layoutmenu,     {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
