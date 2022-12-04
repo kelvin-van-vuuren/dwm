@@ -118,7 +118,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-p", " : ", "-l", "20", "-c", "-F", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-l", "20", "-c", "-F", NULL };
 #define TERMINAL_ENVVAR "TERMINAL"
 static char *floatingtermcmd[]  = { "st", "-c", "floatingterm", NULL };
 static const char *layoutmenu_cmd = "dwm-layoutmenu";
