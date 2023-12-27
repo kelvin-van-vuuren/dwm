@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 #define SESSION_FILE "/tmp/dwm-session"
 
 /* appearance */
@@ -126,6 +128,9 @@ static const char *powermenucmd[] = { "dwm-powermenu", NULL };
 #define TERMINAL_ENVVAR "TERMINAL"
 static char *floatingtermcmd[]  = { "st", "-c", "floatingterm", NULL };
 static const char *layoutmenu_cmd = "dwm-layoutmenu";
+static const char *upvol[] = { "volume", "up", NULL };
+static const char *downvol[] = { "volume", "down", NULL };
+static const char *mutevol[] = { "volume", "mute", NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -204,6 +209,9 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                             8)
 	{ MODKEY|ShiftMask,             XK_q,             quit,           {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_q,             quit,           {1} },
+  { 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
+	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
 };
 
 /* button definitions */
