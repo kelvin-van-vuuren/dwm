@@ -131,6 +131,8 @@ static const char *layoutmenu_cmd = "dwm-layoutmenu";
 static const char *upvol[] = { "volume", "up", NULL };
 static const char *downvol[] = { "volume", "down", NULL };
 static const char *mutevol[] = { "volume", "mute", NULL };
+static const char *laptop_brightness_up[]   = { "sudo", "brightness-laptop", "up", NULL };
+static const char *laptop_brightness_down[] = { "sudo", "brightness-laptop", "down", NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -212,6 +214,8 @@ static const Key keys[] = {
   { 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
 	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
 	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
+  { 0,                       XF86XK_MonBrightnessUp, spawn, {.v = laptop_brightness_up } },
+  { 0,                       XF86XK_MonBrightnessDown, spawn, {.v = laptop_brightness_down } },
 };
 
 /* button definitions */
